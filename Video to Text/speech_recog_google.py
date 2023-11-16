@@ -7,21 +7,21 @@ import moviepy.editor as mp
 import speech_recognition as sr 
   
 # Load the video 
-video = mp.VideoFileClip("2_9gag.mp4") 
+video = mp.VideoFileClip(r"Video to Text\jp.mp4") 
   
 # Extract the audio from the video 
 audio_file = video.audio 
-audio_file.write_audiofile("2_9gag.wav") 
+source = audio_file.write_audiofile("1.wav")
   
 # Initialize recognizer 
 r = sr.Recognizer() 
   
 # Load the audio file 
-with sr.AudioFile("2_9gag.wav") as source: 
+with sr.AudioFile("1.wav") as source: 
     data = r.record(source) 
   
 # Convert speech to text 
-text = r.recognize_google(data) 
+text = r.recognize_ibm(data)
   
 # Print the text 
 print("\nThe resultant text from video is: \n") 
