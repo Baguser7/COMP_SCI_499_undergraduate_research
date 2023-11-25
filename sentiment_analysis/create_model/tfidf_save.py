@@ -27,7 +27,7 @@ def mlp(X, y):
 
 
 if __name__ == '__main__':
-    data ='data_cleaning/data_training/clean_data1000.csv'
+    data ='sentiment_analysis\create_model\data_cleaning\data_training\clean_data.csv'
     df = pd.read_csv(data)
     df_text = df['text'].astype(str)
     df_class = df['sentiment']
@@ -49,6 +49,7 @@ if __name__ == '__main__':
         tokens = [wordnet_lemmatizer.lemmatize(word) for word in tokens]
         #print(tokens)
         lines_clean.append(tokens)
+        print(".")
 
     label_encoder = preprocessing.LabelEncoder()
     label_encoder.fit(df_class)

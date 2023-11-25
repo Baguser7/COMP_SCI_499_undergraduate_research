@@ -14,17 +14,17 @@ import numpy as np
     
 if __name__ == '__main__':
     #set new un-labelled sentence
-    input_data= 'negative sentences'
+    input_data= 'this is so fucking good'
     transformer = TfidfTransformer()
     #load the vectorizer 
-    loaded_vec = CountVectorizer(decode_error="replace",vocabulary=joblib.load(open("vectorizer.model", "rb")))
+    loaded_vec = CountVectorizer(decode_error="replace",vocabulary=joblib.load(open(r"vectorizer.model", "rb")))
     tfidf = transformer.fit_transform(loaded_vec.fit_transform(np.array([input_data])))
     #load the model
-    filename = 'mlp_tfidf.model'
+    filename = r'mlp_tfidf.model'
     loaded_model= joblib.load(filename)
     #make new prediction
     result = loaded_model.predict(tfidf)
-    #print(result)
+    print(result)
 
     for i in result:
         int_result = int(i)
