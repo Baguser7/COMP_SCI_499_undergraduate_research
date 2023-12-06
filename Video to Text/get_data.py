@@ -1,13 +1,14 @@
 import requests
 
-def download_file(url, local_filename):
-    with requests.get(url, stream=True) as response:
-        with open(local_filename, 'wb') as file:
-            for chunk in response.iter_content(chunk_size=8192):
-                file.write(chunk)
+url = "https://tiktok-download-video1.p.rapidapi.com/getVideo"
 
-# Example usage:
-api_url = 'https://example.com/api/download'
-local_filename = 'downloaded_file.mp4'
+querystring = {"url":"https://www.tiktok.com/@huynhbrian/video/6928840070904564998?is_from_webapp=1&sender_device=pc","hd":"1"}
 
-download_file(api_url, local_filename)
+headers = {
+	"X-RapidAPI-Key": "a597122887mshc8d0bd01f969791p1e0669jsn80740e9e20d2",
+	"X-RapidAPI-Host": "tiktok-download-video1.p.rapidapi.com"
+}
+
+response = requests.get(url, headers=headers, params=querystring)
+
+print(response.json())
