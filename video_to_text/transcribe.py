@@ -8,7 +8,7 @@ import whisper
 import clean_up
 import speech_recognition as sr
 
-def whisper(audio):
+def whisper_instance(audio):
     model = whisper.load_model("base")
     transcription = model.transcribe(audio)
     output_file = transcription["text"]
