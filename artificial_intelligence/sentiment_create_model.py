@@ -32,6 +32,7 @@ if __name__ == '__main__':
     porter = PorterStemmer()
     wordnet_lemmatizer = WordNetLemmatizer()
 
+    print("Cleaning Data in Process . . .")
     for line in lines:
         tokens = word_tokenize(line)
         tokens = [w.lower() for w in tokens]
@@ -50,7 +51,6 @@ if __name__ == '__main__':
         
         #print(tokens)
         lines_clean.append(tokens)
-        print(tokens)
 
     label_encoder = preprocessing.LabelEncoder()
     label_encoder.fit(df_class)
@@ -65,13 +65,13 @@ if __name__ == '__main__':
     X_input = vectorizer.fit_transform(new_doc)
     
     #Save tfidf_vectorizer.vocabulary_
-    joblib.dump(vectorizer.vocabulary_,open("vectorizer.model","wb"))
-
-    print('successfully save the features')
+    joblib.dump(vectorizer.vocabulary_,open("sentiment_models\\vectorizer.model","wb"))
+    print('Successfully Save the Features!')
     #print(vectorizer.vocabulary_)
     #print(X_input.toarray())
-    print('Learning MLP')
 
+    print('Learning MLP . . .')
     mlp(X_input, df_y)
-    print('finished')
+
+    print('Finished!')
     
