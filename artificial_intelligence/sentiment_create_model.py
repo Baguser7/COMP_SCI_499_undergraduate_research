@@ -65,7 +65,7 @@ if __name__ == '__main__':
     X_input = vectorizer.fit_transform(new_doc)
     
     #Save tfidf_vectorizer.vocabulary_
-    joblib.dump(vectorizer.vocabulary_,open("sentiment_models\\vectorizer.model","wb"))
+    joblib.dump(vectorizer.vocabulary_,open(f'{current_dir}\\sentiment_models\\vectorizer.model',"wb"))
     print('Successfully Save the Features!')
     #print(vectorizer.vocabulary_)
     #print(X_input.toarray())
