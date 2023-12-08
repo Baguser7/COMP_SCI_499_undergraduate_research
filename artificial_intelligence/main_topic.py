@@ -5,6 +5,7 @@ from gensim.models import LdaModel
 from rake_nltk import Rake
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
+from nltk.stem import PorterStemmer
 from nltk.tokenize import word_tokenize
 
 def get_keywords_with_spacy(text):
@@ -47,6 +48,7 @@ def clean_data(text):
     text = ''.join([i for i in text if not i.isdigit()])
 
     tokens = word_tokenize(text)
+
     stop_words = set(stopwords.words('english'))
     tokens = [word for word in tokens if word.lower() not in stop_words]
 
