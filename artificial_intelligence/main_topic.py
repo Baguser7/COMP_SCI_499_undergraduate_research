@@ -6,9 +6,6 @@ from rake_nltk import Rake
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
-from nltk.stem import PorterStemmer
-
-
 
 def get_keywords_with_spacy(text):
     nlp = spacy.load("en_core_web_sm")
@@ -49,14 +46,13 @@ def clean_data(text):
     text = text.translate(str.maketrans("", "", string.punctuation))
     text = ''.join([i for i in text if not i.isdigit()])
 
-    # tokens = word_tokenize(text)
+    tokens = word_tokenize(text)
+    stop_words = set(stopwords.words('english'))
+    tokens = [word for word in tokens if word.lower() not in stop_words]
 
-    # stop_words = set(stopwords.words('english'))
-    # tokens = [word for word in tokens if word.lower() not in stop_words]
+    stemmer = PorterStemmer()
+    tokens = [stemmer.stem(word) for word in tokens]
 
-    # stemmer = PorterStemmer()
-    # tokens = [stemmer.stem(word) for word in tokens]
-
-    # cleaned_text = ' '.join(tokens)
+    cleaned_text = ' '.join(tokens)
 
     return text

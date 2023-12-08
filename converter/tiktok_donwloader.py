@@ -63,5 +63,5 @@ def get_tiktok_video(url_video):
 	urllib.request.urlretrieve(video_url, "temp.mp4")
 	directory('temp.mp4')
 
-url_video = 'https://www.tiktok.com/@nick.digiovanni/video/7307311219571019039?is_from_webapp=1&sender_device=pc'
-get_tiktok_video(url_video)
+# url_video = 'https://www.tiktok.com/@nick.digiovanni/video/7307311219571019039?is_from_webapp=1&sender_device=pc'
+# get_tiktok_video(url_video)
