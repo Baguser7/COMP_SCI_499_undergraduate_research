@@ -4,7 +4,7 @@ import os.path
 import shutil
 import requests
 import urllib.request
-from pytube import YouTube
+#from pytube import YouTube
 
 def download_file(link, metadata_name, browser):
 	pyk.save_tiktok(link, True, metadata_name, browser) 

@@ -5,31 +5,39 @@
 #https://www.geeksforgeeks.org/openai-whisper-converting-speech-to-text/
 
 import whisper
-import clean_up
 import speech_recognition as sr
 
 def whisper_instance(audio):
     model = whisper.load_model("base")
-    transcription = model.transcribe(audio)
+    transcription = model.transcribe(audio, language="en")
     output_file = transcription["text"]
-    clean_up.deleteAudio(audio)
+    
+    return output_file
 
+def whisper_instance_tiny(audio):
+    model = whisper.load_model("tiny")
+    transcription = model.transcribe(audio, language="en")
+    output_file = transcription["text"]
     return output_file
 
 def houndify(audio):
     r = sr.Recognizer() 
     with sr.AudioFile(audio) as source: 
         data = r.record(source) 
-
-    text = r.recognize_houndify(data, client_id='74f9EOm76HkxNQ7QZJeZLA==', client_key='zaejC92luOFmDXiTyV9wKfPh89HTajfRNFZaP7JUEOrA3oF3YDiX0J8Lc2ZmbZPxl7rj0cMu28J-4e75lT2UpQ==')
+    try:
+        text = r.recognize_houndify(data, client_id='2Iz2Gs8xNg2zbHz2oxlvgA==', client_key='hv4Zpo4CsghKe13pBacwGI12bIwqGCjiVw6E4e5mTIQbgAq5rKsvDlJesnZdFJhUM-39UDwJjqQimdu52mSKTQ==')
+    except Exception as e:
+        text = '0'
     return text
 
 def googleSR(audio):
     r = sr.Recognizer() 
     with sr.AudioFile(audio) as source: 
-        data = r.record(source) 
-
-    text = r.recognize_houndify(data)
+        try:
+            data = r.record(source) 
+            text = r.recognize_google(data,language="en-US")
+        except Exception as e:
+            text = "0"
     return text
 
 
