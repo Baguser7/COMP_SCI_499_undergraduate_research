@@ -7,20 +7,21 @@ from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 from nltk.stem import PorterStemmer
 from nltk.tokenize import word_tokenize
+from profanity_check import predict
 
 def get_keywords_with_spacy(text):
     nlp = spacy.load("en_core_web_sm")
     doc = nlp(text)
     named_entities = [(ent.text, ent.label_) for ent in doc.ents]
 
-    return named_entities
+    return checker(named_entities)
 
 def get_keywords(text):
     r = Rake()
     r.extract_keywords_from_text(text)
     keywords = r.get_ranked_phrases()
 
-    return keywords
+    return checker(keywords)
 
 def preprocess_text(text):
     tokens = word_tokenize(text.lower())
@@ -40,7 +41,14 @@ def get_main_topic(text):
 
     main_topic = lda_model.print_topics(num_words=5)
 
-    return main_topic
+    main_topic_list = main_topic[0][-1]
+    topic_data = main_topic_list.split('"')
+    clean_topics = []
+    for i in range(1, len(topic_data), 2):
+        clean_topics.append(topic_data[i])
+
+    print(clean_topics)
+    return checker(clean_topics)
 
 def clean_data(text):
     text = text.lower()
@@ -57,4 +65,14 @@ def clean_data(text):
 
     cleaned_text = ' '.join(tokens)
 
-    return text
+    return cleaned_text
+
+def profanity_check(text):
+    return predict([text])[0]
+
+def checker(data):
+    for keyword in data:
+        prediction = profanity_check(keyword)
+        if prediction == 1:
+            return prediction
+    return 0

@@ -1,2 +1,0 @@
-import urllib.request
-urllib.request.urlretrieve("https://v16m-default.akamaized.net/4e5a612b52c80c285979fba174f7bc2b/657296aa/video/tos/useast2a/tos-useast2a-ve-0068c004/oUGmOMhUIgoygEFt66fkq9MHoILYhBA4zAXKQM/?a=0&ch=0&cr=0&dr=0&lr=all&cd=0%7C0%7C0%7C0&cv=1&br=2690&bt=1345&bti=OHYpOTY0Zik3OjlmOm01MzE6ZDQ0MDo%3D&cs=0&ds=6&ft=iJOG.y7oZ-10PD1xGpxxg9wRJPS5vEeC~&mime_type=video_mp4&qs=0&rc=PGRnNDU3ZGlmZzc2M2Y3ZUBpM2gzaGY6ZmpoajMzNzgzM0BjLTA2MmExXzQxM2MyYzNgYSNoYmdwcjRfX2lgLS1kLzZzcw%3D%3D&l=20231207220727BDF6AFA3570C3108B929&btag=e00088000", "x.mp4")

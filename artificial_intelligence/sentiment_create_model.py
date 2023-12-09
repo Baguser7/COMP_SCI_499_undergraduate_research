@@ -18,7 +18,6 @@ def mlp(X, y):
     filename = 'mlp_tfidf.model'
     joblib.dump(model, filename)
 
-
 if __name__ == '__main__':
     current_dir = os.path.dirname(os.path.realpath(__file__))
 
