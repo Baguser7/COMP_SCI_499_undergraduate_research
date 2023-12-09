@@ -19,16 +19,17 @@ from video_to_text import process
 import artificial_intelligence.main_topic as topic
 
 app = Flask(__name__)
+links_csv = r'COMP_SCI_499_undergraduate_research\artificial_intelligence\dataset\data_raw\sheetVideo_lite.csv'
 
 @app.route('/predict', methods=["POST"])
 def predict(links):
     # get links from user
-    links = request.args.get('links') 
+    #links = request.args.get('links') 
 
     # get current directory
     current_dir = os.path.dirname(os.path.realpath(__file__))
     predict_his_dir = f'{current_dir}\\artificial_intelligence\\dataset\\data_raw\\histories.csv' 
-    links_csv = f'{current_dir}\\artificial_intelligence\\dataset\\data_raw\\sheetVideo_lite.csv'
+    
 
     # download tiktok videos from a link
     converter.get_tiktok_video(links)
@@ -58,32 +59,35 @@ def predict(links):
         else:
             decision = 'Cannot Predict'
     
+    print(result)
     # analyze main topic with spacy
-    keywoards_rake = topic.get_keywords_with_spacy(text)
+    keywords_spacy = result[0] + topic.get_keywords_with_spacy(text)
 
     # analyze keywords with rake
-    keywords_spacy = topic.get_keywords(text)
+    keywords_rake = result[0] + topic.get_keywords(text)
 
     # analyze main topic with LDA
-    main_topic_lda = topic.get_main_topic(text)
+    main_topic_lda = result[0] + topic.get_main_topic(text)    
 
+    '''
     # add bias or direction by using main topic or keywoards profanity analysis
     bias = [keywoards_rake, keywords_spacy, main_topic_lda]
     if 1 in bias:
         decision += 1
+    '''
 
     # record data
     if (converter.check_file(predict_his_dir) == False):
         with open(predict_his_dir,'w',encoding="utf8",newline='') as out:
             csv_out = csv.writer(out)
             csv_out.writerow(['tiktok_links','text','sentiment', 'keywords_rake', 'keywords_spacy', 'main_topic_lda'])
-            csv_out.writerow([links, text, decision, keywords_spacy, keywoards_rake, main_topic_lda])
+            csv_out.writerow([links, text, decision, process.check_sentiment(keywords_spacy), process.check_sentiment(keywords_rake), process.check_sentiment(main_topic_lda)])
     else:
         df = pd.read_csv(predict_his_dir, usecols=['tiktok_links'])
         if links in df.values:
             with open(predict_his_dir,'a',encoding="utf8",newline='') as out:
                 csv_out = csv.writer(out)
-                csv_out.writerow([links, text, decision, keywords_spacy, keywoards_rake, main_topic_lda])
+                csv_out.writerow([links, text, decision, process.check_sentiment(keywords_spacy), process.check_sentiment(keywords_rake), process.check_sentiment(main_topic_lda)])
 
     # return data in form of JSON
     dictionary     = { 'status': 'success', 'prediction': decision }
@@ -91,16 +95,18 @@ def predict(links):
     return jsonDataOutput
 
 if __name__ == "__main__":
-    app.run(host='127.0.0.1', port='5000')
-
+    #app.run(host='127.0.0.1', port='5000')
+    link = 'https://vm.tiktok.com/ZPRvT3tBF/'
+    predict(link)
     '''
     app.run()
     serve(app, host='127.0.0.1', port=5000)
-
+    
     list_links = process.iterateVideo(links_csv, 'Links')
     counter = 0
     for i in list_links:
         predict(i)
         print("_")
+
     '''
 

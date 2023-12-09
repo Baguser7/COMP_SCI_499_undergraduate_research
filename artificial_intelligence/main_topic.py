@@ -12,7 +12,7 @@ from profanity_check import predict
 def get_keywords_with_spacy(text):
     nlp = spacy.load("en_core_web_sm")
     doc = nlp(text)
-    named_entities = [(ent.text, ent.label_) for ent in doc.ents]
+    named_entities = [ent.text for ent in doc.ents]
 
     return checker(named_entities)
 
@@ -47,7 +47,6 @@ def get_main_topic(text):
     for i in range(1, len(topic_data), 2):
         clean_topics.append(topic_data[i])
 
-    print(clean_topics)
     return checker(clean_topics)
 
 def clean_data(text):
@@ -72,6 +71,7 @@ def profanity_check(text):
 
 def checker(data):
     for keyword in data:
+        print(keyword)
         prediction = profanity_check(keyword)
         if prediction == 1:
             return prediction

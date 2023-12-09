@@ -1,10 +1,10 @@
-import video_toAudio
-import transcribe
-import clean_up
+from video_to_text import video_toAudio
+from video_to_text import transcribe
+from video_to_text import clean_up
 import math
 import csv
 from difflib import SequenceMatcher
-from converter import tiktok_donwloader as td
+from video_to_text.converter import tiktok_donwloader as td
 
 links_csv = r'COMP_SCI_499_undergraduate_research\artificial_intelligence\dataset\data_raw\sheetVideo_lite.csv'
 score_csv = r'COMP_SCI_499_undergraduate_research\artificial_intelligence\dataset\data_raw\score_10.csv'
@@ -96,7 +96,7 @@ def iterateText(list):
             except Exception as e:
                 csv_writer.writerow([i,"0","0",c,d,similar("0", "0"),similar("0", c),similar("0", d)])
 
-iterateText(list_links)
+#iterateText(list_links)
     
 # def find(csv_file, find):
 #     with open(csv_file, 'r') as file:
@@ -115,3 +115,14 @@ iterateText(list_links)
 #                 return THE-SENTIMENT-RESULT
 
 
+def check_sentiment(data):
+    if (data == 0):
+        temp = 'Non Toxic or Negative'
+    elif (data == 1):
+        temp = 'Negative'
+    elif (data == 2):
+        temp = 'Toxic'
+    else:
+        temp = 'Beyond Toxic'
+    
+    return temp
