@@ -11,6 +11,7 @@ def directory(video_name_dir):
 	current_dir = os.path.dirname(os.path.realpath(__file__))
 	video_title_dir = current_dir.split("\\")
 	video_title_dir.pop()
+	video_title_dir.pop()
 
 	# get future video directory
 	temp_videos_dir = '\\'.join(video_title_dir)
@@ -38,6 +39,16 @@ def get_tiktok_video(url_video):
 
 	urllib.request.urlretrieve(video_url, "temp.mp4")
 	directory('temp.mp4')
+
+def download_tiktok(link, dataName, browser):
+   import pyktok as pyk
+   pyk.save_tiktok(link,True,dataName,browser)
+
+def init():
+	return 
+
+if __name__ == "__main__":
+	init()
 
 '''
 def download_file(link, metadata_name, browser):

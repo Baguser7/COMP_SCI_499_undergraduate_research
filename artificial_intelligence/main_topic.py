@@ -71,7 +71,6 @@ def profanity_check(text):
 
 def checker(data):
     for keyword in data:
-        print(keyword)
         prediction = profanity_check(keyword)
         if prediction == 1:
             return prediction

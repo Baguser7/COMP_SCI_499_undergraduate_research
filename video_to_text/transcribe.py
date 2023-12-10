@@ -4,12 +4,16 @@
 #https://www.geeksforgeeks.org/openai-whisper-converting-speech-to-text/
 #https://www.geeksforgeeks.org/openai-whisper-converting-speech-to-text/
 
+import os, os.path
 import whisper
 import speech_recognition as sr
 
-def whisper_instance(audio):
+def whisper_instance():
+    current_dir = os.path.dirname(os.path.realpath(__file__))
+    audio_dir = f'{current_dir}\\audio\\temp.wav'
+
     model = whisper.load_model("base")
-    transcription = model.transcribe(audio, language="en")
+    transcription = model.transcribe(audio_dir, language="en")
     output_file = transcription["text"]
     
     return output_file
@@ -40,5 +44,8 @@ def googleSR(audio):
             text = "0"
     return text
 
+def init():
+    return
 
-
+if __name__ == '__main__':
+    init()

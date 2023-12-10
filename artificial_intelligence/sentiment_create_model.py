@@ -11,7 +11,6 @@ from sklearn.feature_extraction.text import CountVectorizer
 from nltk.stem import WordNetLemmatizer
 import joblib
 
-
 def mlp(X, y):
     model = MLPClassifier(max_iter=500)
     model = model.fit(X, y)
